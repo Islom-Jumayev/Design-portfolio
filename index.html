@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunnatilloyevich Design — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #0f0f11;
+  --surface:  #17171b;
+  --border:   #2a2a31;
+  --accent:   #e45a22;
+  --gold:     #c4a244;
+  --white:    #f0ede8;
+  --muted:    #7a7872;
+  --light:    #eeecea;
+
+  --ff-display: 'DM Serif Display', Georgia, serif;
+  --ff-body:    'DM Sans', system-ui, sans-serif;
+
+  --ease: cubic-bezier(.25,.46,.45,.94);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--ff-body);
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 64px;
+  background: rgba(15,15,17,.88);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--ff-display);
+  font-size: 17px;
+  color: var(--white);
+  text-decoration: none;
+  letter-spacing: .02em;
+}
+.nav-logo span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--white); }
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2px;
+  opacity: .22;
+  pointer-events: none;
+}
+.hero-bg img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(60%);
+}
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--bg) 38%, transparent 100%);
+}
+
+.hero-tag {
+  font-size: 11px;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-family: var(--ff-display);
+  font-size: clamp(52px, 7vw, 96px);
+  line-height: 1;
+  color: var(--white);
+  max-width: 900px;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-sub {
+  margin-top: 28px;
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 480px;
+  line-height: 1.7;
+}
+
+.hero-meta {
+  margin-top: 48px;
+  display: flex;
+  gap: 48px;
+}
+.hero-stat strong {
+  display: block;
+  font-family: var(--ff-display);
+  font-size: 36px;
+  color: var(--white);
+  line-height: 1;
+}
+.hero-stat span {
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  padding: 80px 48px 40px;
+}
+.section-header h2 {
+  font-family: var(--ff-display);
+  font-size: clamp(32px, 4vw, 48px);
+  color: var(--white);
+}
+.section-header .tag {
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  padding: 4px 10px;
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+}
+
+.project {
+  border-top: 1px solid var(--border);
+  padding: 72px 48px;
+}
+.project:last-child { border-bottom: 1px solid var(--border); }
+
+.project-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 36px;
+}
+.project-name {
+  font-family: var(--ff-display);
+  font-size: clamp(24px, 3vw, 36px);
+  color: var(--white);
+}
+.project-type {
+  font-size: 12px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+}
+
+.img-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  cursor: zoom-in;
+}
+.img-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .65s var(--ease);
+}
+.img-card:hover img { transform: scale(1.04); }
+
+.img-card.light { background: #f8f8fa; }
+.img-card.light img { object-fit: contain; padding: 20px; }
+
+.h-320 { height: 320px; }
+.h-340 { height: 340px; }
+.h-380 { height: 380px; }
+.h-420 { height: 420px; }
+
+.col-span-2 { grid-column: span 2; }
+
+.aj-bento {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 340px;
+  gap: 4px;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.92);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+.lightbox.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 2px;
+  box-shadow: 0 40px 120px rgba(0,0,0,.7);
+}
+.lb-close {
+  position: absolute;
+  top: 28px; right: 36px;
+  font-size: 32px;
+  color: rgba(255,255,255,.6);
+  cursor: pointer;
+  line-height: 1;
+  transition: color .2s;
+  background: none;
+  border: none;
+}
+.lb-close:hover { color: #fff; }
+
+footer {
+  padding: 64px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+}
+.footer-brand {
+  font-family: var(--ff-display);
+  font-size: 22px;
+  color: var(--white);
+}
+.footer-brand span { color: var(--accent); }
+.footer-info {
+  text-align: right;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.accent-bar {
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--gold), var(--accent));
+  background-size: 200%;
+  animation: bar 4s linear infinite;
+}
+@keyframes bar { to { background-position: 200% 0; } }
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+  margin: 0 48px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .hero, .section-header, .project, footer { padding-left: 24px; padding-right: 24px; }
+  .aj-bento { grid-template-columns: repeat(2, 1fr); }
+  .grid-2 { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 24px; text-align: center; }
+  .footer-info { text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="accent-bar"></div>
+
+<nav>
+  <a href="#" class="nav-logo">Sunnatilloyevich.design<span></a>
+  <ul class="nav-links">
+    <li><a href="#work">Ishlar</a></li>
+    <li><a href="#contact">Aloqa</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg">
+    <img src="images/dunyo1.jpg" alt="">
+    <img src="images/cheh3.jpg" alt="">
+    <img src="images/vm2.jpg" alt="">
+    <img src="images/aj1.jpg" alt="">
+    <img src="images/dunyo2.jpg" alt="">
+    <img src="images/zaff2.jpg" alt="">
+  </div>
+
+  <div style="position:relative;z-index:1;">
+    <p class="hero-tag">Grafik Dizayner · Toshkent</p>
+    <h1>Brand<br><em>identity</em><br>& logo design</h1>
+    <p class="hero-sub">Logotip, brendbook va vizual identifikatsiya — har bir loyiha o'z ovoziga ega bo'lishi uchun.</p>
+  </div>
+</section>
+
+<section id="work">
+  <div class="section-header reveal">
+    <h2>Loyihalar</h2>
+    <span class="tag">Selected work</span>
+  </div>
+</section>
+
+<div class="project reveal">
+  <div class="project-meta">
+    <span class="project-name">Fayzullayev IELTS School</span>
+    <span class="project-type">Logo Suite · 4 Variants</span>
+  </div>
+  <div class="img-card light h-380" style="max-width:100%;" onclick="lb(this)">
+    <img src="images/fayz.jpg" alt="Fayzullayev logos" style="object-fit:contain;padding:32px;">
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="project reveal">
+  <div class="project-meta">
+    <span class="project-name">Cheholchi Navoiy</span>
+    <span class="project-type">Brand System · Logo · Mockups</span>
+  </div>
+  <div style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:4px;">
+    <div class="img-card h-380" onclick="lb(this)">
+      <img src="images/cheh3.jpg" alt="Cheholchi storefront">
+    </div>
+    <div style="display:grid; grid-template-rows:1fr 1fr; gap:4px;">
+      <div class="img-card" onclick="lb(this)">
+        <img src="images/cheh1.jpg" alt="Cheholchi cup" style="object-position:center 40%;">
+      </div>
+      <div class="img-card light" onclick="lb(this)">
+        <img src="images/cheh2.jpg" alt="Cheholchi logo">
+      </div>
+    </div>
+    <div class="img-card h-380" onclick="lb(this)">
+      <img src="images/cheh4.jpg" alt="Cheholchi business cards">
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="project reveal">
+  <div class="project-meta">
+    <span class="project-name">Dunyo Sovg'alar</span>
+    <span class="project-type">Brand Identity · Mockups</span>
+  </div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
+    <div class="img-card h-340" onclick="lb(this)">
+      <img src="images/dunyo4.jpg" alt="Dunyo laptop mockup">
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
+      <div class="img-card" onclick="lb(this)">
+        <img src="images/dunyo1.jpg" alt="Dunyo storefront">
+      </div>
+      <div class="img-card" onclick="lb(this)">
+        <img src="images/dunyo3.jpg" alt="Dunyo tag mockup">
+      </div>
+      <div class="img-card col-span-2" onclick="lb(this)">
+        <img src="images/dunyo2.jpg" alt="Dunyo gifts flatlay">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="project reveal">
+  <div class="project-meta">
+    <span class="project-name">Gift Market</span>
+    <span class="project-type">Logo Design</span>
+  </div>
+  <div class="grid-2">
+    <div class="img-card h-320" onclick="lb(this)">
+      <img src="images/gift1.jpg" alt="Gift Market green">
+    </div>
+    <div class="img-card h-320 light" onclick="lb(this)">
+      <img src="images/gift2.jpg" alt="Gift Market white">
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="project reveal">
+  <div class="project-meta">
+    <span class="project-name">VM Monogram</span>
+    <span class="project-type">Luxury · Calligraphy Logo</span>
+  </div>
+  <div style="display:grid; grid-template-columns:3fr 2fr; gap:4px;">
+    <div class="img-card h-420" onclick="lb(this)">
+      <img src="images/vm2.jpg" alt="VM roses">
+    </div>
+    <div class="img-card h-420" onclick="lb(this)">
+      <img src="images/vm1.jpg" alt="VM ring">
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="project reveal">
+  <div class="project-meta">
+    <span class="project-name">AJ Monogram</span>
+    <span class="project-type">Logo Design · Monogram</span>
+  </div>
+  <div class="aj-bento">
+    <div class="img-card" onclick="lb(this)">
+      <img src="images/aj1.jpg" alt="AJ orange black">
+    </div>
+    <div class="img-card" onclick="lb(this)">
+      <img src="images/aj2.jpg" alt="AJ orange white">
+    </div>
+    <div class="img-card" onclick="lb(this)">
+      <img src="images/aj3.jpg" alt="AJ black white">
+    </div>
+    <div class="img-card" onclick="lb(this)">
+      <img src="images/aj4.jpg" alt="AJ orange color">
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="project reveal">
+  <div class="project-meta">
+    <span class="project-name">Zaffer Bukhara</span>
+    <span class="project-type">Brand Identity · Business Card</span>
+  </div>
+  <div class="grid-2">
+    <div class="img-card h-320" onclick="lb(this)">
+      <img src="images/zaff2.jpg" alt="Zaffer vizitka front">
+    </div>
+    <div class="img-card h-320" onclick="lb(this)">
+      <img src="images/zaff1.jpg" alt="Zaffer vizitka back">
+    </div>
+  </div>
+</div>
+
+<footer id="contact">
+  <div class="footer-brand">Sunnatilloyevich.design<span></div>
+  <div class="footer-info">
+    Grafik Dizayner · Toshkent<br>
+    Brand Identity · Logo Design<br>
+    <span style="color:var(--accent);">Sunnatilloyevich Design</span>
+  </div>
+</footer>
+
+<div class="accent-bar"></div>
+
+<div class="lightbox" id="lb" onclick="closeLb()">
+  <button class="lb-close" onclick="closeLb()">×</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+function lb(card) {
+  const src = card.querySelector('img').src;
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb').classList.add('active');
+}
+function closeLb() {
+  document.getElementById('lb').classList.remove('active');
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeLb(); });
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) { e.target.classList.add('visible'); }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
