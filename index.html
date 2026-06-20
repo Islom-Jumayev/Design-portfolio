@@ -318,14 +318,115 @@ footer {
   transform: none;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   MOBIL VERSIYA (Telefon va planshetlar uchun)
+   ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
-  nav { padding: 0 24px; }
+  nav { padding: 0 20px; }
   .nav-links { display: none; }
-  .hero, .section-header, .project, footer { padding-left: 24px; padding-right: 24px; }
-  .aj-bento { grid-template-columns: repeat(2, 1fr); }
-  .grid-2 { grid-template-columns: 1fr; }
-  footer { flex-direction: column; gap: 24px; text-align: center; }
-  .footer-info { text-align: center; }
+  
+  .hero {
+    padding: 80px 20px 60px;
+    min-height: auto;
+  }
+  
+  .hero h1 {
+    font-size: 42px;
+    line-height: 1.1;
+  }
+  
+  .hero-sub {
+    font-size: 14px;
+    max-width: 100%;
+  }
+  
+  .section-header {
+    padding: 60px 20px 30px;
+  }
+  
+  .section-header h2 {
+    font-size: 32px;
+  }
+  
+  .project {
+    padding: 40px 20px;
+  }
+  
+  /* AJ Monogram - 1 ustun */
+  .aj-bento {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 280px);
+  }
+  
+  /* Barcha inline gridlarni 1 ustunga o'tkazish */
+  [style*="grid-template-columns:2fr 1fr 1fr"],
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns:3fr 2fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  
+  [style*="grid-template-rows:1fr 1fr"] {
+    grid-template-rows: 280px 280px !important;
+  }
+  
+  /* Rasmlarni to'liq ko'rsatish (qirqilmasligi uchun) */
+  .img-card {
+    height: auto !important;
+    min-height: 250px;
+  }
+  
+  .img-card img {
+    object-fit: contain !important;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .img-card.light img {
+    padding: 15px;
+  }
+  
+  /* Balandliklarni kamaytirish */
+  .h-320, .h-340, .h-380, .h-420 {
+    height: 280px !important;
+  }
+  
+  .col-span-2 {
+    grid-column: span 1;
+  }
+  
+  footer {
+    flex-direction: column;
+    gap: 24px;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  
+  .footer-info {
+    text-align: center;
+  }
+  
+  .divider {
+    margin: 0 20px;
+  }
+}
+
+/* Kichik telefonlar uchun */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 36px;
+  }
+  
+  .aj-bento {
+    grid-template-rows: repeat(4, 220px);
+  }
+  
+  .img-card {
+    min-height: 200px;
+  }
+  
+  .h-320, .h-340, .h-380, .h-420 {
+    height: 220px !important;
+  }
 }
 </style>
 </head>
